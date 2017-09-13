@@ -1,0 +1,60 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<section id="login">
+    <div class="container">
+                <div class="form-wrap">
+                    <form novalidate autocomplete="off" #myForm="ngForm" (ngSubmit)="addEmployee(myForm.value)">
+                        <h1>Add an Employee</h1>
+                        
+                        <div class="form-group">
+                        <input type="text" class="form-control" #refF='ngModel' [(ngModel)]="employeeModel.firstName" pattern="^[a-zA-Z]*$" minlength=3 maxlength=15 required placeholder="FirstName" name="firstName">
+                         <div *ngIf="refF.errors && (refF.dirty || refF.touched)" class="alert alert-danger">
+                                <div [hidden]="!refF.errors.required">
+                                    Name is required.
+                                </div>
+                                <div [hidden]="!refF.errors.pattern">
+                                    Please enter alphabets.
+                                </div>
+                                <div [hidden]="!refF.errors.minlength">
+                                    Please enter atleast 3 characters
+                                </div>
+                         </div>
+                        <br>
+                        </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="employeeModel.lastName" placeholder="LastName" required name="lastName" #refL='ngModel'> 
+                        <div *ngIf="refL.errors && (refL.dirty || refL.touched)" class="alert alert-danger">
+                                <div [hidden]="!refL.errors.required">
+                                    LastName is required.
+                                </div>
+                        </div>
+                        <br>
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="EmployeeId" [(ngModel)]=employeeModel.employeeId name="employeeId" #refId='ngModel'>
+                        <div *ngIf="refId.errors && (refId.dirty || refId.touched)" class="alert alert-danger">
+                                <div [hidden]="!refL.errors.required">
+                                    ID is required.
+                                </div>
+                        </div>
+                        <br>
+                      </div>
+                        <div class="form-group">
+                            <select class="txt-box" name="deptType"  class="form-control">
+                            <option [value]="employeeModel.department" [disabled]="true">Select Option </option>
+                            <option *ngFor="let d of deptType" [ngValue]="d.type">
+                                {{d.type}}
+                            </option>
+                         </select>
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Submit" [disabled]="myForm.invalid">
+                        <div>
+    <app-employee [employeeDetail]="employeesArray"></app-employee>
+               </div>
+                    </form>
+                
+                      
+                </div>
+        </div>
+            </section>
+
+
